@@ -2,42 +2,50 @@ import React, {useState} from 'react';
 import s from './App.module.css';
 import Content from "./components/contentBlock/Content";
 import FilterTask from "./components/filterTask/FilterTask";
+import UserName from "./components/userName/UserName";
 
 export type stateType = {
-    title: string,
-    id: number,
+    name: string
+    title: string
+    id: number
     completed: boolean
 }
-export type filterType = 'React' | 'Redux' | 'JavaScript' | 'All';
+export type filterType = 'React' | 'Redux' | 'JavaScript' | 'All' | 'DeleteAll';
 
 function App() {
     const [task, setTask] = useState([
-        {title: "React", id: 1, completed: false},
-        {title: "Redux", id: 2, completed: false},
-        {title: "JavaScript", id: 3, completed: false}
+        {name: 'Jack', title: "React", id: 1, completed: false},
+        {name: 'Jack', title: "Redux", id: 2, completed: false},
+        {name: 'Jack', title: "JavaScript", id: 3, completed: false}
     ])
     const [title, setTitle] = useState('')
     const [filter, setFilter] = useState<filterType>('All')
+    const [name, setName] = useState('')
 
-    function addTask(event: KeyboardEventInit) {
-        if(title.length) {
+    function addTask(event: any) {
+        if (title.length & name.length) {
             if (event.key === 'Enter') {
                 setTask([
                     ...task, {
-                        title: title, id: Date.now(), completed: false
+                        name: name, title: title, id: Date.now(), completed: false
                     }
                 ])
                 setTitle('')
             }
         }
     }
+
     function removeTasks(id: number) {
         let newTask = task.filter((element) => element.id !== id)
         setTask(newTask)
     }
 
-
     let taskForTodoList = task;
+
+    function deleteAll(value: number) {
+        let newTask = task.filter((element) => element.id === value)
+        setTask(newTask)
+    }
 
     if (filter === 'React') {
         taskForTodoList = task.filter((element) => element.title === 'React')
@@ -59,7 +67,8 @@ function App() {
             <section className={s.app}>
                 <Content removeTask={removeTasks} state={taskForTodoList}/>
                 <section className={s.form}>
-                    <FilterTask filterTask={filterTask}/>
+                    <UserName count={task.length} nameUser={name} defaultUserNameCallBack={setName}/>
+                    <FilterTask deleteAll={deleteAll} filterTask={filterTask}/>
                     <div className={s.input__block}>
                         <input onKeyPress={addTask} onChange={(e) => setTitle(e.target.value)} className={s.input}
                                type='text'
