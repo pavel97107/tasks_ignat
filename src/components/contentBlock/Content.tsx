@@ -1,10 +1,17 @@
 import React from "react";
 import s from './Content.module.css'
+import ListTask from "../listTask/listTask";
+import {stateType} from "../../App";
 
-const Content = () => {
+export type stateProps = {
+    state: Array<stateType>,
+    removeTask: (id: number) => void
+}
+
+const Content = (props: stateProps) => {
     return (
         <section className={s.content}>
-            123
+            <ListTask removeTask={props.removeTask} state={props.state}/>
         </section>
     )
 }

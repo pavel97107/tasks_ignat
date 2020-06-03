@@ -1,4 +1,5 @@
 .content {
-    flex: 2;
-    background: yellow;
+    flex: 1 0 85%;
+    overflow: auto;
+    background: #162657;
 }

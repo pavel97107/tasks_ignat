@@ -1,0 +1,23 @@
+
+.filterTask {
+    display: flex;
+    justify-content: space-between;
+}
+
+.filterTask_button {
+    flex: 1 0 30px;
+    background-color: #3E5770;
+    outline: none;
+    border: none;
+    color: gold;
+    line-height: 40px;
+    cursor: pointer;
+}
+
+.filterTask_button:hover {
+    background: #701441;
+}
+
+.filterTask_button:active {
+    background-color: #4F092B;
+}
